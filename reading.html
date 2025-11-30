@@ -268,51 +268,233 @@
         'tile.edit.value': 'Bewerken'
       }
     };
-    const wordPools = {
-      'en-US': [
-        'forest', 'gentle', 'silver', 'planet', 'harbor', 'garden', 'moment',
-        'whisper', 'rocket', 'canyon', 'sunset', 'wonder', 'packet', 'bridge'
-      ],
-      'nl-NL': [
-        'bosrand', 'zachtjes', 'zilver', 'planeet', 'haven', 'tuinpad',
-        'moment', 'fluister', 'raket', 'kloof', 'zonsondergang', 'wonder',
-        'pakket', 'brug'
-      ]
+    const DATA_URL = 'data/word-pools.json';
+    /**
+     * Default pool data stays bundled with the page so exercises continue to
+     * work offline. A larger dataset can live in data/word-pools.json using the
+     * same shape (see prompt_more_words.txt for contributor guidance).
+     */
+    const defaultPoolData = {
+      words: {
+        'en-US': [
+          { text: 'forest', tags: ['nature', 'easy'] },
+          { text: 'gentle', tags: ['adjective', 'calm'] },
+          { text: 'silver', tags: ['color'] },
+          { text: 'planet', tags: ['space'] },
+          { text: 'harbor', tags: ['place', 'travel'] },
+          { text: 'garden', tags: ['nature', 'daily'] },
+          { text: 'moment', tags: ['time'] },
+          { text: 'whisper', tags: ['sound'] },
+          { text: 'rocket', tags: ['space', 'technology'] },
+          { text: 'canyon', tags: ['nature'] },
+          { text: 'sunset', tags: ['nature', 'time'] },
+          { text: 'wonder', tags: ['emotion'] },
+          { text: 'packet', tags: ['object'] },
+          { text: 'bridge', tags: ['place', 'structure'] },
+          { text: 'lantern', tags: ['object', 'light'] },
+          { text: 'meadow', tags: ['nature'] },
+          { text: 'compass', tags: ['tool', 'travel'] },
+          { text: 'thunder', tags: ['weather'] },
+          { text: 'pebble', tags: ['nature', 'small'] },
+          { text: 'horizon', tags: ['nature', 'view'] },
+          { text: 'ember', tags: ['fire'] },
+          { text: 'riverbank', tags: ['nature'] },
+          { text: 'skylark', tags: ['animal'] },
+          { text: 'lighthouse', tags: ['place', 'light'] },
+          { text: 'voyage', tags: ['travel'] },
+          { text: 'harvest', tags: ['season'] }
+        ],
+        'nl-NL': [
+          { text: 'bosrand', tags: ['natuur', 'makkelijk'] },
+          { text: 'zachtjes', tags: ['bijwoord'] },
+          { text: 'zilver', tags: ['kleur'] },
+          { text: 'planeet', tags: ['ruimte'] },
+          { text: 'haven', tags: ['plaats', 'reizen'] },
+          { text: 'tuinpad', tags: ['natuur'] },
+          { text: 'moment', tags: ['tijd'] },
+          { text: 'fluister', tags: ['geluid'] },
+          { text: 'raket', tags: ['ruimte', 'techniek'] },
+          { text: 'kloof', tags: ['natuur'] },
+          { text: 'zonsondergang', tags: ['natuur', 'tijd'] },
+          { text: 'wonder', tags: ['gevoel'] },
+          { text: 'pakket', tags: ['object'] },
+          { text: 'brug', tags: ['plaats', 'structuur'] },
+          { text: 'lantaarn', tags: ['licht'] },
+          { text: 'weide', tags: ['natuur'] },
+          { text: 'kompas', tags: ['gereedschap', 'reizen'] },
+          { text: 'onweer', tags: ['weer'] },
+          { text: 'kiezel', tags: ['natuur', 'klein'] },
+          { text: 'horizon', tags: ['natuur'] },
+          { text: 'gloed', tags: ['vuur'] },
+          { text: 'rivierbank', tags: ['natuur'] },
+          { text: 'leeuwerik', tags: ['dier'] },
+          { text: 'vuurtoren', tags: ['plaats', 'licht'] },
+          { text: 'reis', tags: ['reizen'] },
+          { text: 'oogst', tags: ['seizoen'] }
+        ]
+      },
+      expressions: {
+        'en-US': [
+          { text: 'Trust your instincts', tags: ['motivation'] },
+          { text: 'Follow that light', tags: ['direction'] },
+          { text: 'Speak with kindness', tags: ['kindness'] },
+          { text: 'Enjoy the journey', tags: ['travel', 'mindfulness'] },
+          { text: 'Guard every promise', tags: ['values'] },
+          { text: 'Share the wonder', tags: ['curiosity'] },
+          { text: 'Carry hope forward', tags: ['optimism'] },
+          { text: 'Choose calm breaths', tags: ['mindfulness'] },
+          { text: 'Celebrate small wins', tags: ['growth'] },
+          { text: 'Listen for courage', tags: ['encouragement'] },
+          { text: 'Keep curiosity open', tags: ['learning'] }
+        ],
+        'nl-NL': [
+          { text: 'Volg je hart', tags: ['motivatie'] },
+          { text: 'Blijf steeds lachen', tags: ['vreugde'] },
+          { text: 'Luister met aandacht', tags: ['aandacht'] },
+          { text: 'Koester elke glimlach', tags: ['vriendelijkheid'] },
+          { text: 'Deel het avontuur', tags: ['samen'] },
+          { text: 'Zoek nieuwe ideeën', tags: ['creativiteit'] },
+          { text: 'Adem rustig verder', tags: ['mindfulness'] },
+          { text: 'Vertrouw op je stem', tags: ['zelfvertrouwen'] },
+          { text: 'Vier elke kleine stap', tags: ['groei'] },
+          { text: 'Blijf vragen stellen', tags: ['leren'] },
+          { text: 'Breng licht naar anderen', tags: ['zorg'] }
+        ]
+      },
+      sentences: {
+        'en-US': [
+          { text: 'Every morning brings a choice', tags: ['routine', 'mindfulness'] },
+          { text: 'Learning together builds lasting friendships', tags: ['community', 'learning'] },
+          { text: 'Practice patience for enduring growth', tags: ['growth'] },
+          { text: 'Small acts create brighter days', tags: ['kindness'] },
+          { text: 'Caring words encourage brave steps', tags: ['encouragement'] },
+          { text: 'Curiosity opens unexpected doors', tags: ['curiosity'] },
+          { text: 'Gentle focus leads to steady progress', tags: ['focus'] },
+          { text: 'Sharing stories nurtures community', tags: ['community'] },
+          { text: 'Listening deeply invites understanding', tags: ['empathy'] },
+          { text: 'Kind routines guide confident learners', tags: ['confidence'] }
+        ],
+        'nl-NL': [
+          { text: 'Elke ochtend biedt een keuze', tags: ['routine'] },
+          { text: 'Samen leren schept hechte vriendschappen', tags: ['gemeenschap'] },
+          { text: 'Blijf oefenen voor blijvende groei', tags: ['groei'] },
+          { text: 'Kleine gebaren brengen grote glimlachen', tags: ['vriendelijkheid'] },
+          { text: 'Rustige ademhaling brengt innerlijke kalmte', tags: ['mindfulness'] },
+          { text: 'Nieuwsgierigheid opent verborgen deuren', tags: ['nieuwsgierigheid'] },
+          { text: 'Zachte aandacht geeft stabiele stappen', tags: ['focus'] },
+          { text: 'Verhalen delen verbindt de groep', tags: ['gemeenschap'] },
+          { text: 'Luister goed om elkaar te begrijpen', tags: ['empathie'] },
+          { text: 'Vaste rituelen geven zeker vertrouwen', tags: ['vertrouwen'] }
+        ]
+      }
     };
-    const expressionPools = {
-      'en-US': [
-        'Trust your instincts',
-        'Follow that light',
-        'Speak with kindness',
-        'Enjoy the journey',
-        'Guard every promise',
-        'Share the wonder'
-      ],
-      'nl-NL': [
-        'Volg je hart',
-        'Blijf steeds lachen',
-        'Luister met aandacht',
-        'Koester elke glimlach',
-        'Deel het avontuur',
-        'Zoek nieuwe ideeën'
-      ]
-    };
-    const sentencePools = {
-      'en-US': [
-        'Every morning brings a choice',
-        'Learning together builds lasting friendships',
-        'Practice patience for enduring growth',
-        'Small acts create brighter days',
-        'Caring words encourage brave steps'
-      ],
-      'nl-NL': [
-        'Elke ochtend biedt een keuze',
-        'Samen leren schept hechte vriendschappen',
-        'Blijf oefenen voor blijvende groei',
-        'Kleine gebaren brengen grote glimlachen',
-        'Rustige ademhaling brengt innerlijke kalmte'
-      ]
-    };
+    let poolData = clonePoolData(defaultPoolData);
+    let poolDataReady = false;
+    let poolLoadPromise = null;
+
+    function clonePoolData(source){
+      return JSON.parse(JSON.stringify(source || {}));
+    }
+
+    function sanitizeEntry(entry){
+      if (!entry) return null;
+      if (typeof entry === 'string'){
+        return { text: entry.trim(), tags: [] };
+      }
+      const text = (entry.text || '').toString().trim();
+      if (!text) return null;
+      const tags = Array.isArray(entry.tags)
+        ? entry.tags.map(tag => (typeof tag === 'string' ? tag.trim() : '')).filter(Boolean)
+        : [];
+      return { text, tags };
+    }
+
+    function normalizeEntryList(list){
+      if (!Array.isArray(list)) return [];
+      return list.map(sanitizeEntry).filter(Boolean);
+    }
+
+    function mergeLocaleEntries(baseEntries = [], incomingEntries = []){
+      const merged = new Map();
+      [...incomingEntries, ...baseEntries].forEach(entry => {
+        const sanitized = sanitizeEntry(entry);
+        if (!sanitized) return;
+        const key = sanitized.text.toLowerCase();
+        if (!merged.has(key)) merged.set(key, sanitized);
+      });
+      return Array.from(merged.values());
+    }
+
+    function mergePoolData(base, incoming){
+      const result = clonePoolData(base);
+      if (!incoming) return result;
+      ['words', 'expressions', 'sentences'].forEach(section => {
+        const incomingSection = incoming[section];
+        if (!incomingSection) return;
+        if (!result[section]) result[section] = {};
+        Object.keys(incomingSection).forEach(lang => {
+          const normalized = normalizeEntryList(incomingSection[lang]);
+          if (!normalized.length) return;
+          const current = result[section][lang] || [];
+          result[section][lang] = mergeLocaleEntries(current, normalized);
+        });
+      });
+      return result;
+    }
+
+    async function ensurePoolData(){
+      if (poolDataReady) return poolData;
+      if (poolLoadPromise) return poolLoadPromise;
+      if (typeof fetch !== 'function'){
+        poolDataReady = true;
+        poolLoadPromise = Promise.resolve(poolData);
+        return poolLoadPromise;
+      }
+      poolLoadPromise = (async () => {
+        try{
+          const response = await fetch(DATA_URL, { cache: 'no-cache' });
+          if (!response.ok) throw new Error(`Pool fetch failed: ${response.status}`);
+          const payload = await response.json();
+          poolData = mergePoolData(defaultPoolData, payload);
+        } catch (error) {
+          console.warn('Using bundled pools:', error);
+          poolData = clonePoolData(defaultPoolData);
+        } finally {
+          poolDataReady = true;
+        }
+        return poolData;
+      })();
+      return poolLoadPromise;
+    }
+
+    function getPoolSection(poolType){
+      return poolData[poolType] || {};
+    }
+
+    function pickPoolEntries(poolType, lang, count){
+      const section = getPoolSection(poolType);
+      const fallback = section['en-US'] || [];
+      const localized = section[lang] && section[lang].length ? section[lang] : fallback;
+      const source = [...localized];
+      const chosen = [];
+      while (chosen.length < count && source.length){
+        const index = Math.floor(Math.random() * source.length);
+        chosen.push(source.splice(index, 1)[0]);
+      }
+      return chosen;
+    }
+
+    function entryToText(item){
+      if (!item) return '';
+      if (typeof item === 'string') return item;
+      return (item.text || '').toString();
+    }
+
+    function getPoolItems(poolType, lang, count){
+      return pickPoolEntries(poolType, lang, count)
+        .map(entryToText)
+        .filter(Boolean);
+    }
 
     const normalizeLang = (value) => {
       return (value || '').toLowerCase().startsWith('nl') ? 'nl-NL' : 'en-US';
@@ -341,6 +523,7 @@
 
     languageSelect.value = normalizeLang(navigator.language || 'en-US');
     applyLanguage();
+    ensurePoolData();
     const speech = 'speechSynthesis' in window ? window.speechSynthesis : null;
     const speechState = {
       voices: [],
@@ -365,26 +548,6 @@
     function calculateWordDwellMs(word){
       const sanitized = (word || '').toString().trim();
       return BASE_WORD_TIME + sanitized.length * MS_PER_CHARACTER;
-    }
-
-    function pickFromPool(pools, lang, count){
-      const source = [...(pools[lang] || pools['en-US'] || [])];
-      const chosen = [];
-      while (chosen.length < count && source.length){
-        const index = Math.floor(Math.random() * source.length);
-        chosen.push(source.splice(index, 1)[0]);
-      }
-      return chosen;
-    }
-
-    function pickWordSet(lang, count = 3){
-      const pool = [...(wordPools[lang] || wordPools['en-US'])];
-      const chosen = [];
-      while (chosen.length < count && pool.length){
-        const index = Math.floor(Math.random() * pool.length);
-        chosen.push(pool.splice(index, 1)[0]);
-      }
-      return chosen;
     }
 
     function showWordScreen(){
@@ -449,16 +612,17 @@
       wordSequenceRunning = true;
       announce(choiceKey);
       const lang = currentLang();
+      await ensurePoolData();
       let words = [];
       if (poolType === 'expressions'){
-        words = pickFromPool(expressionPools, lang, items);
+        words = getPoolItems('expressions', lang, items);
       } else if (poolType === 'sentences'){
-        words = pickFromPool(sentencePools, lang, items);
+        words = getPoolItems('sentences', lang, items);
       } else {
-        words = pickWordSet(lang, items);
+        words = getPoolItems('words', lang, items);
       }
       if (!words.length){
-        words = pickWordSet(lang, items);
+        words = getPoolItems('words', lang, items);
       }
       showWordScreen();
       try{

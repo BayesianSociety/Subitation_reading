@@ -31,3 +31,4 @@ Deliverables:
 - Updated `reading.html` (or modularized JS) that loads external pool data and uses it in the existing UI.
 - New JSON data files populated with expanded word/expression/sentence lists for both English and Dutch.
 - Clear documentation (README update or inline comments) describing the data format and how to extend it.
+- Do not change the current look and feel of the UI. Keep the same colors, formats, fonts and locations. Only add new things listed before. Do not remove anything visual.
