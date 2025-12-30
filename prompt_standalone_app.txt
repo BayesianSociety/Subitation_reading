@@ -11,3 +11,4 @@
   - Package the same web assets inside a native shell if needed: tools like Capacitor (for iOS/Android) or
     Electron/Tauri (for desktop) embed a WebView plus an app icon, so tapping the icon launches the HTML/JS
     exactly as-is while giving you native distribution options.
+	
