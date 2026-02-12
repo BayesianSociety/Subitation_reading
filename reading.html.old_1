@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="pl">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -63,6 +63,7 @@
       outline: 3px solid rgba(208,38,96,0.45);
       outline-offset: 2px;
     }
+
     main{
       width:min(960px, 94vw);
       padding:32px 18px 48px;
@@ -267,6 +268,7 @@
         'tile.edit.value': 'Bewerken'
       }
     };
+    const DATA_URL = 'data/word-pools_jipjanneke.json';
     /**
      * Default pool data stays bundled with the page so exercises continue to
      * work offline. A larger dataset can live in data/word-pools.json using the
@@ -303,54 +305,32 @@
           { text: 'harvest', tags: ['season'] }
         ],
         'nl-NL': [
-          { text: 'janneke', tags: ['natuur', 'makkelijk'] },
-          { text: 'vanavond', tags: ['bijwoord'] },
-          { text: 'over', tags: ['kleur'] },
-          { text: 'bloemetjes', tags: ['ruimte'] },
-          { text: 'vroeg', tags: ['plaats', 'reizen'] },
-          { text: 'halen', tags: ['natuur'] },
-          { text: 'knietjes', tags: ['tijd'] },
-          { text: 'blijf', tags: ['geluid'] },
-          { text: 'jongen', tags: ['ruimte', 'techniek'] },
-          { text: 'oude', tags: ['natuur'] },
-          { text: 'verdrietig', tags: ['natuur', 'tijd'] },
-          { text: 'pas', tags: ['gevoel'] },
-          { text: 'liggen', tags: ['object'] },
-          { text: 'horen', tags: ['plaats', 'structuur'] },
-          { text: 'staat', tags: ['licht'] },
-          { text: 'doet', tags: ['natuur'] },
-          { text: 'vijf', tags: ['gereedschap', 'reizen'] },
-          { text: 'niets', tags: ['weer'] },
-          { text: 'wekker', tags: ['natuur', 'klein'] },
-          { text: 'gejokt', tags: ['natuur'] },
-          { text: 'thee', tags: ['vuur'] },
-          { text: 'roept', tags: ['natuur'] },
-          { text: 'gaan', tags: ['dier'] },
-          { text: 'zegt', tags: ['plaats', 'licht'] },
-          { text: 'stiekem', tags: ['reizen'] },
-          { text: 'oortje', tags: ['seizoen'] },
-          { text: 'naar', tags: ['tijd'] },
-          { text: 'kunt', tags: ['natuur'] },
-          { text: 'volgende', tags: ['tijd'] },
-          { text: 'goed', tags: ['natuur', 'water'] },
-          { text: 'proberen', tags: ['natuur', 'licht'] },
-          { text: 'ertegenaan', tags: ['object'] },
-          { text: 'daar', tags: ['gevoel'] },
-          { text: 'kinderen', tags: ['natuur'] },
-          { text: 'moeder', tags: ['object', 'geluid'] },
-          { text: 'mama', tags: ['object'] },
-          { text: 'hoor', tags: ['licht'] },
-          { text: 'belooft', tags: ['dier'] },
-          { text: 'waar', tags: ['textuur'] },
-          { text: 'zeven', tags: ['feest', 'plant'] },
-          { text: 'raam', tags: ['weer'] },
-          { text: 'morgen', tags: ['tijd', 'gevoel'] },
-          { text: 'gehouden', tags: ['weer', 'seizoen'] },
-          { text: 'geschrokken', tags: ['plaats', 'structuur'] },
-          { text: 'moeten', tags: ['natuur', 'landbouw'] },
-          { text: 'hebben', tags: ['licht'] },
-          { text: 'worden', tags: ['natuur', 'ochtend'] },
-          { text: 'morgens', tags: ['ruimte'] }
+          { text: 'bosrand', tags: ['natuur', 'makkelijk'] },
+          { text: 'zachtjes', tags: ['bijwoord'] },
+          { text: 'zilver', tags: ['kleur'] },
+          { text: 'planeet', tags: ['ruimte'] },
+          { text: 'haven', tags: ['plaats', 'reizen'] },
+          { text: 'tuinpad', tags: ['natuur'] },
+          { text: 'moment', tags: ['tijd'] },
+          { text: 'fluister', tags: ['geluid'] },
+          { text: 'raket', tags: ['ruimte', 'techniek'] },
+          { text: 'kloof', tags: ['natuur'] },
+          { text: 'zonsondergang', tags: ['natuur', 'tijd'] },
+          { text: 'wonder', tags: ['gevoel'] },
+          { text: 'pakket', tags: ['object'] },
+          { text: 'brug', tags: ['plaats', 'structuur'] },
+          { text: 'lantaarn', tags: ['licht'] },
+          { text: 'weide', tags: ['natuur'] },
+          { text: 'kompas', tags: ['gereedschap', 'reizen'] },
+          { text: 'onweer', tags: ['weer'] },
+          { text: 'kiezel', tags: ['natuur', 'klein'] },
+          { text: 'horizon', tags: ['natuur'] },
+          { text: 'gloed', tags: ['vuur'] },
+          { text: 'rivierbank', tags: ['natuur'] },
+          { text: 'leeuwerik', tags: ['dier'] },
+          { text: 'vuurtoren', tags: ['plaats', 'licht'] },
+          { text: 'reis', tags: ['reizen'] },
+          { text: 'oogst', tags: ['seizoen'] }
         ]
       },
       expressions: {
@@ -368,26 +348,17 @@
           { text: 'Keep curiosity open', tags: ['learning'] }
         ],
         'nl-NL': [
-          { text: 'Mooi, zegt buurman', tags: ['motivatie'] },
-          { text: 'Jip en Janneke gaan op hun knietjes liggen en leggen hun oortjes tegen de bloemetjes', tags: ['vreugde'] },
-          { text: 'Sneeuwklokjes luiden nooit', tags: ['aandacht'] },
-          { text: 'Maar o jee', tags: ['vriendelijkheid'] },
-          { text: 'Te laat, zegt Janneke boos', tags: ['samen'] },
-          { text: 'En dan gaat ze naar Jip z\'n huis', tags: ['creativiteit'] },
-          { text: 'Nee hoor', tags: ['mindfulness'] },
-          { text: 'Dag kinderen, zegt hij', tags: ['zelfvertrouwen'] },
-          { text: 'Je moet het\'s morgens vroeg proberen, zegt buurman', tags: ['groei'] },
-          { text: 'Maar ze horen niets', tags: ['leren'] },
-          { text: 'De oude buurman kijkt over de heg', tags: ['zorg'] },
-          { text: 'Hij is al half aangekleed', tags: ['rust'] },
-          { text: 'Heel vroeg', tags: ['vriendelijkheid'] },
-          { text: 'die net thee zet', tags: ['samenwerking'] },
-          { text: 'Dan luiden de sneeuwklokjes', tags: ['inspiratie'] },
-          { text: 'Daar komt Jip', tags: ['blijheid'] },
-          { text: 'daar zijn de sneeuwklokjes', tags: ['nieuwsgierigheid'] },
-          { text: 'blijf maar lekker in je bed', tags: ['begrip'] },
-          { text: 'Dan moet je goed luisteren', tags: ['mindset'] },
-          { text: 'Ja, zegt Jip verdrietig', tags: ['rust', 'beeldspraak'] }
+          { text: 'Volg je hart', tags: ['motivatie'] },
+          { text: 'Blijf steeds lachen', tags: ['vreugde'] },
+          { text: 'Luister met aandacht', tags: ['aandacht'] },
+          { text: 'Koester elke glimlach', tags: ['vriendelijkheid'] },
+          { text: 'Deel het avontuur', tags: ['samen'] },
+          { text: 'Zoek nieuwe ideeën', tags: ['creativiteit'] },
+          { text: 'Adem rustig verder', tags: ['mindfulness'] },
+          { text: 'Vertrouw op je stem', tags: ['zelfvertrouwen'] },
+          { text: 'Vier elke kleine stap', tags: ['groei'] },
+          { text: 'Blijf vragen stellen', tags: ['leren'] },
+          { text: 'Breng licht naar anderen', tags: ['zorg'] }
         ]
       },
       sentences: {
@@ -404,21 +375,16 @@
           { text: 'Kind routines guide confident learners', tags: ['confidence'] }
         ],
         'nl-NL': [
-          { text: 'Kijk, daar staat de buurman.', tags: ['routine'] },
-          { text: 'Heel vroeg, om vijf uur.', tags: ['gemeenschap'] },
-          { text: 'Dan moet je goed luisteren.', tags: ['groei'] },
-          { text: 'Te laat, zegt Janneke boos.', tags: ['vriendelijkheid'] },
-          { text: 'Hij is al half aangekleed.', tags: ['mindfulness'] },
-          { text: 'Maar ze horen niets.', tags: ['nieuwsgierigheid'] },
-          { text: 'En hij komt gauw naar buiten.', tags: ['focus'] },
-          { text: 'Dag kinderen, zegt hij.', tags: ['gemeenschap'] },
-          { text: 'De oude buurman kijkt over de heg.', tags: ['empathie'] },
-          { text: 'We hebben sneeuwklokjes.', tags: ['vertrouwen'] },
-          { text: 'Mama, zegt Jip, mag ik vanavond de wekker?', tags: ['geduld'] },
-          { text: 'De buurman heeft je voor de gek gehouden.', tags: ['muziek', 'vreugde'] },
-          { text: 'Nee hoor, blijf maar lekker in je bed.', tags: ['leren'] },
-          { text: 'Maar ze gaan het morgen nog eens proberen.', tags: ['vriendelijkheid'] },
-          { text: 'Ze weten niet of de buurman gejokt heeft.', tags: ['metaforisch', 'groei'] }
+          { text: 'Elke ochtend biedt een keuze', tags: ['routine'] },
+          { text: 'Samen leren schept hechte vriendschappen', tags: ['gemeenschap'] },
+          { text: 'Blijf oefenen voor blijvende groei', tags: ['groei'] },
+          { text: 'Kleine gebaren brengen grote glimlachen', tags: ['vriendelijkheid'] },
+          { text: 'Rustige ademhaling brengt innerlijke kalmte', tags: ['mindfulness'] },
+          { text: 'Nieuwsgierigheid opent verborgen deuren', tags: ['nieuwsgierigheid'] },
+          { text: 'Zachte aandacht geeft stabiele stappen', tags: ['focus'] },
+          { text: 'Verhalen delen verbindt de groep', tags: ['gemeenschap'] },
+          { text: 'Luister goed om elkaar te begrijpen', tags: ['empathie'] },
+          { text: 'Vaste rituelen geven zeker vertrouwen', tags: ['vertrouwen'] }
         ]
       }
     };
@@ -448,6 +414,17 @@
       return list.map(sanitizeEntry).filter(Boolean);
     }
 
+    function mergeLocaleEntries(baseEntries = [], incomingEntries = []){
+      const merged = new Map();
+      [...incomingEntries, ...baseEntries].forEach(entry => {
+        const sanitized = sanitizeEntry(entry);
+        if (!sanitized) return;
+        const key = sanitized.text.toLowerCase();
+        if (!merged.has(key)) merged.set(key, sanitized);
+      });
+      return Array.from(merged.values());
+    }
+
     function mergePoolData(base, incoming){
       const result = clonePoolData(base);
       if (!incoming) return result;
@@ -458,7 +435,8 @@
         Object.keys(incomingSection).forEach(lang => {
           const normalized = normalizeEntryList(incomingSection[lang]);
           if (!normalized.length) return;
-          result[section][lang] = normalized;
+          const current = result[section][lang] || [];
+          result[section][lang] = mergeLocaleEntries(current, normalized);
         });
       });
       return result;
@@ -467,15 +445,22 @@
     async function ensurePoolData(){
       if (poolDataReady) return poolData;
       if (poolLoadPromise) return poolLoadPromise;
+      if (typeof fetch !== 'function'){
+        poolDataReady = true;
+        poolLoadPromise = Promise.resolve(poolData);
+        return poolLoadPromise;
+      }
       poolLoadPromise = (async () => {
         try{
-          poolData = clonePoolData(defaultPoolData);
+          const response = await fetch(DATA_URL, { cache: 'no-cache' });
+          if (!response.ok) throw new Error(`Pool fetch failed: ${response.status}`);
+          const payload = await response.json();
+          poolData = mergePoolData(defaultPoolData, payload);
         } catch (error) {
           console.warn('Using bundled pools:', error);
           poolData = clonePoolData(defaultPoolData);
         } finally {
           poolDataReady = true;
-          poolLoadPromise = null;
         }
         return poolData;
       })();
