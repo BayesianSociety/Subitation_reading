@@ -50,7 +50,8 @@
       font-weight: 600;
       color: #111;
     }
-    #languageSelect {
+    #languageSelect,
+    #levelSelect {
       min-width: 160px;
       padding: 0.55rem 0.75rem;
       font: 600 1rem/1.2 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
@@ -59,7 +60,8 @@
       background: #fff;
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
     }
-    #languageSelect:focus-visible {
+    #languageSelect:focus-visible,
+    #levelSelect:focus-visible {
       outline: 3px solid rgba(208,38,96,0.45);
       outline-offset: 2px;
     }
@@ -182,6 +184,12 @@
       <option value="en-US">English</option>
       <option value="nl-NL">Nederlands</option>
     </select>
+    <label id="levelHint" for="levelSelect" data-i18n="levelHint">Select level</label>
+    <select id="levelSelect" aria-label="Select level">
+      <option value="0" data-i18n="level.0">Level 0</option>
+      <option value="1" data-i18n="level.1">Level 1</option>
+      <option value="2" data-i18n="level.2">Level 2</option>
+    </select>
   </div>
   <main role="main">
     <h1 id="pageTitle" data-i18n="title">Czytanie</h1>
@@ -219,6 +227,7 @@
   <script>
     const selection = document.getElementById('selection');
     const languageSelect = document.getElementById('languageSelect');
+    const levelSelect = document.getElementById('levelSelect');
     const titleEl = document.getElementById('pageTitle');
     const mainEl = document.querySelector('main');
     const wordDisplayScreen = document.getElementById('wordDisplayScreen');
@@ -232,6 +241,10 @@
     const translations = {
       'en-US': {
         title: 'Reading',
+        levelHint: 'Select level',
+        'level.0': 'Level 0',
+        'level.1': 'Level 1',
+        'level.2': 'Level 2',
         selectionPrefix: 'Selected',
         'tile.3words.bottom': 'Words',
         'tile.3words.value': '3 words',
@@ -250,6 +263,10 @@
       },
       'nl-NL': {
         title: 'Lezen',
+        levelHint: 'Selecteer niveau',
+        'level.0': 'Niveau 0',
+        'level.1': 'Niveau 1',
+        'level.2': 'Niveau 2',
         selectionPrefix: 'Geselecteerd',
         'tile.3words.bottom': 'Woorden',
         'tile.3words.value': '3 woorden',
@@ -274,7 +291,8 @@
      */
     const defaultPoolData = {
       words: {
-        'en-US': [
+        'en-US': {
+          '0': [
           { text: 'forest', tags: ['nature', 'easy'] },
           { text: 'gentle', tags: ['adjective', 'calm'] },
           { text: 'silver', tags: ['color'] },
@@ -301,8 +319,38 @@
           { text: 'lighthouse', tags: ['place', 'light'] },
           { text: 'voyage', tags: ['travel'] },
           { text: 'harvest', tags: ['season'] }
-        ],
-        'nl-NL': [
+          ],
+          '1': [
+            { text: 'glimmer', tags: ['light', 'intermediate'] },
+            { text: 'fragile', tags: ['adjective', 'intermediate'] },
+            { text: 'current', tags: ['water', 'science'] },
+            { text: 'orchard', tags: ['nature', 'place'] },
+            { text: 'signal', tags: ['technology', 'sound'] },
+            { text: 'shelter', tags: ['place', 'safety'] },
+            { text: 'pattern', tags: ['thinking'] },
+            { text: 'summit', tags: ['nature', 'height'] },
+            { text: 'drift', tags: ['motion'] },
+            { text: 'anchor', tags: ['object', 'travel'] },
+            { text: 'glacier', tags: ['nature', 'climate'] },
+            { text: 'thread', tags: ['object'] }
+          ],
+          '2': [
+            { text: 'resilience', tags: ['advanced', 'mindset'] },
+            { text: 'meticulous', tags: ['advanced', 'adjective'] },
+            { text: 'synchronize', tags: ['advanced', 'action'] },
+            { text: 'illuminate', tags: ['advanced', 'light'] },
+            { text: 'trajectory', tags: ['advanced', 'movement'] },
+            { text: 'converge', tags: ['advanced', 'thinking'] },
+            { text: 'fragrance', tags: ['advanced', 'senses'] },
+            { text: 'threshold', tags: ['advanced', 'place'] },
+            { text: 'harmony', tags: ['advanced', 'emotion'] },
+            { text: 'narrative', tags: ['advanced', 'language'] },
+            { text: 'vigilant', tags: ['advanced', 'focus'] },
+            { text: 'momentum', tags: ['advanced', 'motion'] }
+          ]
+        },
+        'nl-NL': {
+          '0': [
           { text: 'janneke', tags: ['natuur', 'makkelijk'] },
           { text: 'vanavond', tags: ['bijwoord'] },
           { text: 'over', tags: ['kleur'] },
@@ -351,10 +399,40 @@
           { text: 'hebben', tags: ['licht'] },
           { text: 'worden', tags: ['natuur', 'ochtend'] },
           { text: 'morgens', tags: ['ruimte'] }
-        ]
+          ],
+          '1': [
+            { text: 'glanzen', tags: ['licht', 'gemiddeld'] },
+            { text: 'voorzichtig', tags: ['bijvoeglijk'] },
+            { text: 'richting', tags: ['plaats', 'denken'] },
+            { text: 'heuvel', tags: ['natuur'] },
+            { text: 'boodschap', tags: ['taal'] },
+            { text: 'beschermen', tags: ['actie'] },
+            { text: 'ritme', tags: ['muziek', 'patroon'] },
+            { text: 'kustlijn', tags: ['natuur', 'water'] },
+            { text: 'verkennen', tags: ['reizen'] },
+            { text: 'antwoord', tags: ['leren'] },
+            { text: 'helder', tags: ['bijvoeglijk', 'licht'] },
+            { text: 'verbinden', tags: ['samenwerking'] }
+          ],
+          '2': [
+            { text: 'veerkracht', tags: ['gevorderd', 'mindset'] },
+            { text: 'nauwkeurig', tags: ['gevorderd', 'bijvoeglijk'] },
+            { text: 'samenhang', tags: ['gevorderd', 'denken'] },
+            { text: 'verhelderen', tags: ['gevorderd', 'taal'] },
+            { text: 'ontwikkeling', tags: ['gevorderd', 'groei'] },
+            { text: 'afstemming', tags: ['gevorderd', 'samen'] },
+            { text: 'voorwaarde', tags: ['gevorderd', 'concept'] },
+            { text: 'inzichtelijk', tags: ['gevorderd', 'denken'] },
+            { text: 'doelgericht', tags: ['gevorderd', 'focus'] },
+            { text: 'betrouwbaar', tags: ['gevorderd', 'waarden'] },
+            { text: 'omstandig', tags: ['gevorderd', 'taal'] },
+            { text: 'voortgang', tags: ['gevorderd', 'tijd'] }
+          ]
+        }
       },
       expressions: {
-        'en-US': [
+        'en-US': {
+          '0': [
           { text: 'Trust your instincts', tags: ['motivation'] },
           { text: 'Follow that light', tags: ['direction'] },
           { text: 'Speak with kindness', tags: ['kindness'] },
@@ -366,10 +444,32 @@
           { text: 'Celebrate small wins', tags: ['growth'] },
           { text: 'Listen for courage', tags: ['encouragement'] },
           { text: 'Keep curiosity open', tags: ['learning'] }
-        ],
-        'nl-NL': [
+          ],
+          '1': [
+            { text: 'Hold your focus steady', tags: ['focus'] },
+            { text: 'Take one step further', tags: ['growth'] },
+            { text: 'Name what you notice', tags: ['awareness'] },
+            { text: 'Build strength with practice', tags: ['learning'] },
+            { text: 'Ask clear and brave questions', tags: ['communication'] },
+            { text: 'Turn mistakes into lessons', tags: ['resilience'] },
+            { text: 'Stay kind under pressure', tags: ['kindness'] },
+            { text: 'Keep your goals visible', tags: ['planning'] }
+          ],
+          '2': [
+            { text: 'Align effort with intention', tags: ['advanced', 'mindfulness'] },
+            { text: 'Translate doubt into action', tags: ['advanced', 'growth'] },
+            { text: 'Sustain momentum through setbacks', tags: ['advanced', 'resilience'] },
+            { text: 'Refine your craft each day', tags: ['advanced', 'learning'] },
+            { text: 'Frame complexity with clarity', tags: ['advanced', 'thinking'] },
+            { text: 'Lead with empathy and precision', tags: ['advanced', 'leadership'] },
+            { text: 'Question assumptions with care', tags: ['advanced', 'critical-thinking'] },
+            { text: 'Practice discipline without rigidity', tags: ['advanced', 'focus'] }
+          ]
+        },
+        'nl-NL': {
+          '0': [
           { text: 'Mooi, zegt buurman', tags: ['motivatie'] },
-          { text: 'Jip en Janneke gaan op hun knietjes liggen en leggen hun oortjes tegen de bloemetjes', tags: ['vreugde'] },
+          { text: 'Jip en Janneke gaan op hun knietjes liggen', tags: ['vreugde'] },
           { text: 'Sneeuwklokjes luiden nooit', tags: ['aandacht'] },
           { text: 'Maar o jee', tags: ['vriendelijkheid'] },
           { text: 'Te laat, zegt Janneke boos', tags: ['samen'] },
@@ -388,10 +488,32 @@
           { text: 'blijf maar lekker in je bed', tags: ['begrip'] },
           { text: 'Dan moet je goed luisteren', tags: ['mindset'] },
           { text: 'Ja, zegt Jip verdrietig', tags: ['rust', 'beeldspraak'] }
-        ]
+          ],
+          '1': [
+            { text: 'Blijf rustig en kijk goed', tags: ['focus'] },
+            { text: 'Neem vandaag een extra stap', tags: ['groei'] },
+            { text: 'Vertel wat je precies ziet', tags: ['aandacht'] },
+            { text: 'Samen oefenen werkt beter', tags: ['leren'] },
+            { text: 'Durf duidelijke vragen te stellen', tags: ['communicatie'] },
+            { text: 'Fouten maken helpt je leren', tags: ['veerkracht'] },
+            { text: 'Blijf vriendelijk onder druk', tags: ['vriendelijkheid'] },
+            { text: 'Houd je doel in beeld', tags: ['planning'] }
+          ],
+          '2': [
+            { text: 'Richt je inzet op wat echt telt', tags: ['gevorderd', 'mindset'] },
+            { text: 'Maak van twijfel een plan', tags: ['gevorderd', 'groei'] },
+            { text: 'Houd tempo bij tegenslag', tags: ['gevorderd', 'veerkracht'] },
+            { text: 'Scherp je aanpak dagelijks aan', tags: ['gevorderd', 'leren'] },
+            { text: 'Breng complexe keuzes helder in kaart', tags: ['gevorderd', 'denken'] },
+            { text: 'Leid met precisie en empathie', tags: ['gevorderd', 'leiderschap'] },
+            { text: 'Onderzoek aannames met aandacht', tags: ['gevorderd', 'kritisch'] },
+            { text: 'Oefen discipline met souplesse', tags: ['gevorderd', 'focus'] }
+          ]
+        }
       },
       sentences: {
-        'en-US': [
+        'en-US': {
+          '0': [
           { text: 'Every morning brings a choice', tags: ['routine', 'mindfulness'] },
           { text: 'Learning together builds lasting friendships', tags: ['community', 'learning'] },
           { text: 'Practice patience for enduring growth', tags: ['growth'] },
@@ -402,8 +524,26 @@
           { text: 'Sharing stories nurtures community', tags: ['community'] },
           { text: 'Listening deeply invites understanding', tags: ['empathy'] },
           { text: 'Kind routines guide confident learners', tags: ['confidence'] }
-        ],
-        'nl-NL': [
+          ],
+          '1': [
+            { text: 'A clear routine helps your attention stay strong.', tags: ['routine', 'focus'] },
+            { text: 'When we explain ideas aloud, understanding grows faster.', tags: ['learning'] },
+            { text: 'Careful listening can prevent many small misunderstandings.', tags: ['communication'] },
+            { text: 'Steady effort often beats sudden bursts of motivation.', tags: ['growth'] },
+            { text: 'Good questions lead to better decisions over time.', tags: ['thinking'] },
+            { text: 'Shared practice makes difficult tasks feel more manageable.', tags: ['community'] }
+          ],
+          '2': [
+            { text: 'Consistent reflection turns experience into transferable skill.', tags: ['advanced', 'learning'] },
+            { text: 'Resilient teams adapt quickly when priorities shift unexpectedly.', tags: ['advanced', 'teamwork'] },
+            { text: 'Precise language reduces ambiguity in complex collaborations.', tags: ['advanced', 'communication'] },
+            { text: 'Thoughtful preparation creates space for creative problem solving.', tags: ['advanced', 'planning'] },
+            { text: 'Long-term progress depends on disciplined, repeatable habits.', tags: ['advanced', 'growth'] },
+            { text: 'Constructive feedback strengthens both confidence and performance.', tags: ['advanced', 'coaching'] }
+          ]
+        },
+        'nl-NL': {
+          '0': [
           { text: 'Kijk, daar staat de buurman.', tags: ['routine'] },
           { text: 'Heel vroeg, om vijf uur.', tags: ['gemeenschap'] },
           { text: 'Dan moet je goed luisteren.', tags: ['groei'] },
@@ -419,7 +559,24 @@
           { text: 'Nee hoor, blijf maar lekker in je bed.', tags: ['leren'] },
           { text: 'Maar ze gaan het morgen nog eens proberen.', tags: ['vriendelijkheid'] },
           { text: 'Ze weten niet of de buurman gejokt heeft.', tags: ['metaforisch', 'groei'] }
-        ]
+          ],
+          '1': [
+            { text: 'Een vaste routine helpt je aandacht langer vast te houden.', tags: ['routine', 'focus'] },
+            { text: 'Als je hardop uitlegt wat je denkt, leer je sneller.', tags: ['leren'] },
+            { text: 'Goed luisteren voorkomt veel kleine misverstanden.', tags: ['communicatie'] },
+            { text: 'Rustige inzet werkt vaak beter dan korte pieken van motivatie.', tags: ['groei'] },
+            { text: 'Gerichte vragen geven op termijn betere keuzes.', tags: ['denken'] },
+            { text: 'Samen oefenen maakt moeilijke taken beter haalbaar.', tags: ['gemeenschap'] }
+          ],
+          '2': [
+            { text: 'Door regelmatige reflectie wordt ervaring bruikbare vaardigheid.', tags: ['gevorderd', 'leren'] },
+            { text: 'Veerkrachtige teams schakelen snel bij onverwachte veranderingen.', tags: ['gevorderd', 'team'] },
+            { text: 'Precieze taal vermindert onduidelijkheid in complexe samenwerking.', tags: ['gevorderd', 'communicatie'] },
+            { text: 'Doordachte voorbereiding geeft ruimte voor creatief oplossen.', tags: ['gevorderd', 'planning'] },
+            { text: 'Langdurige vooruitgang vraagt om herhaalbare discipline.', tags: ['gevorderd', 'groei'] },
+            { text: 'Opbouwende feedback versterkt zowel vertrouwen als prestatie.', tags: ['gevorderd', 'coaching'] }
+          ]
+        }
       }
     };
     let poolData = clonePoolData(defaultPoolData);
@@ -456,9 +613,25 @@
         if (!incomingSection) return;
         if (!result[section]) result[section] = {};
         Object.keys(incomingSection).forEach(lang => {
-          const normalized = normalizeEntryList(incomingSection[lang]);
-          if (!normalized.length) return;
-          result[section][lang] = normalized;
+          const incomingLang = incomingSection[lang];
+          if (Array.isArray(incomingLang)){
+            const normalized = normalizeEntryList(incomingLang);
+            if (!normalized.length) return;
+            if (!result[section][lang] || Array.isArray(result[section][lang])){
+              result[section][lang] = {};
+            }
+            result[section][lang]['0'] = normalized;
+            return;
+          }
+          if (!incomingLang || typeof incomingLang !== 'object') return;
+          if (!result[section][lang] || Array.isArray(result[section][lang])){
+            result[section][lang] = {};
+          }
+          Object.keys(incomingLang).forEach(level => {
+            const normalized = normalizeEntryList(incomingLang[level]);
+            if (!normalized.length) return;
+            result[section][lang][level] = normalized;
+          });
         });
       });
       return result;
@@ -486,10 +659,36 @@
       return poolData[poolType] || {};
     }
 
-    function pickPoolEntries(poolType, lang, count){
+    function normalizeLevel(value){
+      const parsed = Number.parseInt(value, 10);
+      if (Number.isNaN(parsed)) return 0;
+      return Math.max(0, Math.min(2, parsed));
+    }
+
+    function getLevelEntries(languageData, level){
+      if (Array.isArray(languageData)){
+        return level === 0 ? languageData : [];
+      }
+      if (!languageData || typeof languageData !== 'object'){
+        return [];
+      }
+      const entries = languageData[String(level)];
+      return Array.isArray(entries) ? entries : [];
+    }
+
+    function pickPoolEntries(poolType, lang, level, count){
       const section = getPoolSection(poolType);
-      const fallback = section['en-US'] || [];
-      const localized = section[lang] && section[lang].length ? section[lang] : fallback;
+      const localizedLevel = getLevelEntries(section[lang], level);
+      const fallbackLevel = getLevelEntries(section['en-US'], level);
+      const localizedZero = getLevelEntries(section[lang], 0);
+      const fallbackZero = getLevelEntries(section['en-US'], 0);
+      const localized = localizedLevel.length
+        ? localizedLevel
+        : fallbackLevel.length
+          ? fallbackLevel
+          : localizedZero.length
+            ? localizedZero
+            : fallbackZero;
       const source = [...localized];
       const chosen = [];
       while (chosen.length < count && source.length){
@@ -505,8 +704,8 @@
       return (item.text || '').toString();
     }
 
-    function getPoolItems(poolType, lang, count){
-      return pickPoolEntries(poolType, lang, count)
+    function getPoolItems(poolType, lang, level, count){
+      return pickPoolEntries(poolType, lang, level, count)
         .map(entryToText)
         .filter(Boolean);
     }
@@ -517,6 +716,10 @@
 
     function currentLang(){
       return normalizeLang(languageSelect.value);
+    }
+
+    function currentLevel(){
+      return normalizeLevel(levelSelect.value);
     }
 
     function applyLanguage(){
@@ -537,6 +740,7 @@
     }
 
     languageSelect.value = normalizeLang(navigator.language || 'en-US');
+    levelSelect.value = '0';
     applyLanguage();
     ensurePoolData();
     const speech = 'speechSynthesis' in window ? window.speechSynthesis : null;
@@ -548,6 +752,9 @@
     languageSelect.addEventListener('change', () => {
       applyLanguage();
       speechState.preferredLang = currentLang();
+      if (speech) speech.cancel();
+    });
+    levelSelect.addEventListener('change', () => {
       if (speech) speech.cancel();
     });
 
@@ -627,17 +834,18 @@
       wordSequenceRunning = true;
       announce(choiceKey);
       const lang = currentLang();
+      const level = currentLevel();
       await ensurePoolData();
       let words = [];
       if (poolType === 'expressions'){
-        words = getPoolItems('expressions', lang, items);
+        words = getPoolItems('expressions', lang, level, items);
       } else if (poolType === 'sentences'){
-        words = getPoolItems('sentences', lang, items);
+        words = getPoolItems('sentences', lang, level, items);
       } else {
-        words = getPoolItems('words', lang, items);
+        words = getPoolItems('words', lang, level, items);
       }
       if (!words.length){
-        words = getPoolItems('words', lang, items);
+        words = getPoolItems('words', lang, level, items);
       }
       showWordScreen();
       try{
